@@ -170,7 +170,7 @@ export default function Navbar({
                     </button>
                     <button
                       onClick={() => { onDisconnect(); setShowDropdown(false); }}
-                      className="flex w-full items-center gap-2.5 rounded-lg px-3 py-2 text-sm text-[#dc2626]/70 hover:bg-[#dc2626]/[0.05] hover:text-[#dc2626] transition-colors font-bold"
+                      className="flex w-full items-center gap-2.5 rounded-lg px-3 py-2 text-sm text-[#dc2626] hover:bg-[#dc2626]/[0.05] transition-colors font-black"
                     >
                       <PowerIcon />
                       Disconnect
@@ -185,7 +185,7 @@ export default function Navbar({
               disabled={isConnecting}
               className="relative overflow-hidden rounded-xl bg-gradient-to-r from-[#d4af37] to-[#10b981] p-[1px] transition-all hover:shadow-[0_4px_25px_rgba(212,175,55,0.15)] active:scale-[0.98] disabled:opacity-50"
             >
-              <div className="flex items-center gap-2 rounded-[11px] bg-white/95 px-4 py-2 text-sm font-bold text-black/70 backdrop-blur-sm">
+              <div className="flex items-center gap-2 rounded-[11px] bg-white/95 px-4 py-2 text-sm font-black text-black/80 backdrop-blur-sm">
                 {isConnecting ? (
                   <>
                     <svg className="animate-spin" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">

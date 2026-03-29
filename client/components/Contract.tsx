@@ -99,19 +99,21 @@ function CheckIcon() {
 
 // ── Styled Input ─────────────────────────────────────────────
 
+// ── Styled Input ─────────────────────────────────────────────
+
 function Input({
   label,
   ...props
 }: { label: string } & React.InputHTMLAttributes<HTMLInputElement>) {
   return (
     <div className="space-y-2">
-      <label className="block text-[11px] font-medium uppercase tracking-wider text-white/30">
+      <label className="block text-[11px] font-bold uppercase tracking-wider text-black/30">
         {label}
       </label>
-      <div className="group rounded-xl border border-white/[0.06] bg-white/[0.02] p-px transition-all focus-within:border-[#fbbf24]/30 focus-within:shadow-[0_0_20px_rgba(251,191,36,0.08)]">
+      <div className="group rounded-xl border border-black/[0.1] bg-black/[0.02] p-px transition-all focus-within:border-[#d4af37]/50 focus-within:shadow-[0_4px_20px_rgba(212,175,55,0.1)]">
         <input
           {...props}
-          className="w-full rounded-[11px] bg-transparent px-4 py-3 font-mono text-sm text-white/90 placeholder:text-white/15 outline-none"
+          className="w-full rounded-[11px] bg-transparent px-4 py-3 font-mono text-sm text-black placeholder:text-black/20 outline-none font-bold"
         />
       </div>
     </div>
@@ -177,10 +179,10 @@ export default function ContractUI({ walletAddress, onConnect, isConnecting }: C
     if (!depositAmount || Number(depositAmount) <= 0) return setError("Enter valid amount");
     setError(null);
     setIsDepositing(true);
-    setTxStatus("Securing your assets in the vault...");
+    setTxStatus("Securing assets in the legend's vault...");
     try {
       await deposit(walletAddress, BigInt(depositAmount));
-      setTxStatus("Success! Your savings are safe.");
+      setTxStatus("Success! Your wealth is now legendary.");
       setDepositAmount("");
       fetchStats();
       setTimeout(() => setTxStatus(null), 5000);
@@ -197,10 +199,10 @@ export default function ContractUI({ walletAddress, onConnect, isConnecting }: C
     if (!withdrawAmount || Number(withdrawAmount) <= 0) return setError("Enter valid amount");
     setError(null);
     setIsWithdrawing(true);
-    setTxStatus("Unlocking your funds from the vault...");
+    setTxStatus("Unlocking wealth from the vault...");
     try {
       await withdraw(walletAddress, BigInt(withdrawAmount));
-      setTxStatus("Withdrawal complete. Wealth released!");
+      setTxStatus("Withdrawal complete. Legend persists!");
       setWithdrawAmount("");
       fetchStats();
       setTimeout(() => setTxStatus(null), 5000);
@@ -213,87 +215,87 @@ export default function ContractUI({ walletAddress, onConnect, isConnecting }: C
   }, [walletAddress, withdrawAmount, fetchStats]);
 
   const tabs: { key: Tab; label: string; icon: React.ReactNode; color: string }[] = [
-    { key: "overview", label: "Dashboard", icon: <TrendingUpIcon />, color: "#34d399" },
-    { key: "deposit", label: "Save", icon: <ArrowDownIcon />, color: "#fbbf24" },
-    { key: "withdraw", label: "Withdraw", icon: <ArrowUpIcon />, color: "#f87171" },
+    { key: "overview", label: "Dashboard", icon: <TrendingUpIcon />, color: "#10b981" },
+    { key: "deposit", label: "Save", icon: <ArrowDownIcon />, color: "#d4af37" },
+    { key: "withdraw", label: "Withdraw", icon: <ArrowUpIcon />, color: "#dc2626" },
   ];
 
   return (
     <div className="w-full max-w-2xl animate-fade-in-up-delayed">
       {/* Toast Handling */}
       {error && (
-        <div className="mb-4 flex items-start gap-3 rounded-xl border border-[#f87171]/15 bg-[#f87171]/[0.05] px-4 py-3 backdrop-blur-sm animate-slide-down">
-          <span className="mt-0.5 text-[#f87171]"><AlertIcon /></span>
+        <div className="mb-4 flex items-start gap-3 rounded-xl border border-[#dc2626]/10 bg-[#dc2626]/[0.03] px-4 py-3 backdrop-blur-sm animate-slide-down">
+          <span className="mt-0.5 text-[#dc2626] font-bold"><AlertIcon /></span>
           <div className="min-w-0 flex-1">
-            <p className="text-sm font-medium text-[#f87171]/90">Security Alert</p>
-            <p className="text-xs text-[#f87171]/50 mt-0.5 break-all">{error}</p>
+            <p className="text-sm font-bold text-[#dc2626]/80 tracking-tight">Security Alert</p>
+            <p className="text-xs text-[#dc2626]/50 mt-0.5 font-bold italic">{error}</p>
           </div>
-          <button onClick={() => setError(null)} className="shrink-0 text-[#f87171]/30 hover:text-[#f87171]/70 text-lg leading-none">&times;</button>
+          <button onClick={() => setError(null)} className="shrink-0 text-[#dc2626]/30 hover:text-[#dc2626]/70 text-lg leading-none">&times;</button>
         </div>
       )}
 
       {txStatus && (
-        <div className="mb-4 flex items-center gap-3 rounded-xl border border-[#34d399]/15 bg-[#34d399]/[0.05] px-4 py-3 backdrop-blur-sm shadow-[0_0_30px_rgba(52,211,153,0.05)] animate-slide-down">
-          <span className="text-[#34d399]">
+        <div className="mb-4 flex items-center gap-3 rounded-xl border border-[#10b981]/10 bg-[#10b981]/[0.03] px-4 py-3 backdrop-blur-sm shadow-[0_4px_20px_rgba(16,185,129,0.05)] animate-slide-down">
+          <span className="text-[#10b981]">
             {txStatus.includes("complete") || txStatus.includes("Success") ? <CheckIcon /> : <SpinnerIcon />}
           </span>
-          <span className="text-sm text-[#34d399]/90">{txStatus}</span>
+          <span className="text-sm text-[#059669] font-bold">{txStatus}</span>
         </div>
       )}
 
       <Spotlight className="rounded-2xl">
-        <AnimatedCard className="p-0" containerClassName="rounded-2xl">
+        <AnimatedCard className="p-0 bg-white shadow-[0_8px_40px_rgba(0,0,0,0.04)]" containerClassName="rounded-2xl">
           {/* Header */}
-          <div className="flex items-center justify-between border-b border-white/[0.06] px-6 py-4">
+          <div className="flex items-center justify-between border-b border-black/[0.04] px-6 py-4">
             <div className="flex items-center gap-3">
-              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-[#fbbf24]/20 to-[#34d399]/20 border border-white/[0.06]">
+              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-[#d4af37]/10 to-[#10b981]/10 border border-black/[0.04]">
                 <MoneyIcon />
               </div>
               <div>
-                <h3 className="text-sm font-bold text-white/90">Savings Vault</h3>
-                <p className="text-[10px] text-white/25 font-mono mt-0.5">{truncate(CONTRACT_ADDRESS)}</p>
+                <h3 className="text-sm font-black text-black">Savings Vault</h3>
+                <p className="text-[10px] text-black/60 font-black font-mono mt-0.5 tracking-tight">{truncate(CONTRACT_ADDRESS)}</p>
               </div>
             </div>
             <div className="flex items-center gap-2">
-              <Badge variant="success" className="bg-[#34d399]/10 text-[#34d399] border-[#34d399]/20 uppercase tracking-tighter text-[9px]">Live on Testnet</Badge>
+              <Badge variant="success" className="bg-[#10b981]/10 text-[#059669] border-[#10b981]/10 uppercase tracking-tighter text-[9px] font-bold">Protocol Active</Badge>
             </div>
           </div>
 
           {/* Wallet Info Banner */}
           {walletAddress ? (
-            <div className="bg-gradient-to-r from-[#7c6cf0]/5 to-transparent px-6 py-2 border-b border-white/[0.03] flex items-center justify-between">
+            <div className="bg-gradient-to-r from-black/[0.01] to-transparent px-6 py-2 border-b border-black/[0.02] flex items-center justify-between">
               <div className="flex items-center gap-2">
                 <WalletIcon />
-                <span className="text-[10px] font-mono text-white/40">{truncate(walletAddress)}</span>
+                <span className="text-[10px] font-mono text-black/60 font-black">{truncate(walletAddress)}</span>
               </div>
               <div className="flex items-center gap-2">
-                <span className="text-[10px] text-white/25">Your Balance:</span>
-                <span className="text-xs font-bold text-[#34d399]">{userBalance?.toString() || "0"} XLM</span>
+                <span className="text-[10px] text-black/40 font-black">Liquidity:</span>
+                <span className="text-xs font-black text-[#059669]">{userBalance?.toString() || "0"} XLM</span>
               </div>
             </div>
           ) : (
-            <div className="bg-white/[0.02] px-6 py-2 border-b border-white/[0.03] flex items-center justify-center">
-              <p className="text-[10px] text-white/20">Wallet disconnected &middot; Statistics reflect global state</p>
+            <div className="bg-black/[0.02] px-6 py-2 border-b border-black/[0.02] flex items-center justify-center">
+              <p className="text-[10px] text-black/40 font-black">Authenticate with Freighter for personal vault access</p>
             </div>
           )}
 
           {/* Tabs */}
-          <div className="flex border-b border-white/[0.06] px-2 bg-black/20">
+          <div className="flex border-b border-black/[0.04] px-2 bg-black/[0.01]">
             {tabs.map((t) => (
               <button
                 key={t.key}
                 onClick={() => { setActiveTab(t.key); setError(null); }}
                 className={cn(
-                  "relative flex items-center gap-2 px-5 py-3.5 text-sm font-medium transition-all group",
-                  activeTab === t.key ? "text-white/90" : "text-white/35 hover:text-white/55"
+                  "relative flex items-center gap-2 px-5 py-3.5 text-sm font-black transition-all group",
+                  activeTab === t.key ? "text-black" : "text-black/40 hover:text-black/60"
                 )}
               >
-                <span className="transition-colors group-hover:scale-110" style={activeTab === t.key ? { color: t.color } : undefined}>{t.icon}</span>
+                <span className="transition-transform group-hover:scale-110" style={activeTab === t.key ? { color: t.color } : undefined}>{t.icon}</span>
                 {t.label}
                 {activeTab === t.key && (
                   <span
                     className="absolute bottom-0 left-2 right-2 h-[2px] rounded-full"
-                    style={{ background: `linear-gradient(to right, ${t.color}, ${t.color}66)` }}
+                    style={{ background: `linear-gradient(to right, ${t.color}, ${t.color}33)` }}
                   />
                 )}
               </button>
@@ -305,45 +307,45 @@ export default function ContractUI({ walletAddress, onConnect, isConnecting }: C
             {activeTab === "overview" && (
               <div className="space-y-6">
                 <div className="grid grid-cols-2 gap-4">
-                  <div className="rounded-2xl border border-white/[0.06] bg-white/[0.01] p-5 relative overflow-hidden group">
-                    <div className="absolute -right-4 -top-4 text-white/[0.02] group-hover:text-white/[0.05] transition-colors">
+                  <div className="rounded-2xl border border-black/[0.04] bg-white p-5 relative overflow-hidden group hover:shadow-lg transition-all">
+                    <div className="absolute -right-4 -top-4 text-black/[0.02] group-hover:text-black/[0.05] transition-colors scale-150">
                       <MoneyIcon />
                     </div>
-                    <p className="text-[10px] font-medium uppercase tracking-widest text-white/25">Total Deposits</p>
-                    <h4 className="mt-2 text-2xl font-bold text-[#34d399] font-mono tracking-tight">
+                    <p className="text-[10px] font-black uppercase tracking-widest text-black/40">Protocol TVL</p>
+                    <h4 className="mt-2 text-2xl font-black text-[#059669] font-mono tracking-tighter">
                       {vaultStats?.total_amount.toString() || "0"}
-                      <span className="text-xs ml-1 text-white/20 font-normal uppercase">XLM</span>
+                      <span className="text-[10px] ml-1 text-black/40 font-black uppercase">XLM</span>
                     </h4>
                   </div>
-                  <div className="rounded-2xl border border-white/[0.06] bg-white/[0.01] p-5 relative overflow-hidden group">
-                    <div className="absolute -right-4 -top-4 text-white/[0.02] group-hover:text-white/[0.05] transition-colors">
+                  <div className="rounded-2xl border border-black/[0.04] bg-white p-5 relative overflow-hidden group hover:shadow-lg transition-all">
+                    <div className="absolute -right-4 -top-4 text-black/[0.02] group-hover:text-black/[0.05] transition-colors scale-150">
                       <UsersIcon />
                     </div>
-                    <p className="text-[10px] font-medium uppercase tracking-widest text-white/25">Active Savers</p>
-                    <h4 className="mt-2 text-2xl font-bold text-[#fbbf24] font-mono tracking-tight text-center sm:text-left">
+                    <p className="text-[10px] font-black uppercase tracking-widest text-black/40">Vault Savers</p>
+                    <h4 className="mt-2 text-2xl font-black text-[#d4af37] font-mono tracking-tighter">
                       {vaultStats?.user_count.toString() || "0"}
                     </h4>
                   </div>
                 </div>
 
-                <div className="relative rounded-2xl border border-white/[0.06] overflow-hidden bg-black/40 p-1 flex flex-col sm:flex-row items-center gap-6 group hover:border-white/[0.1] transition-all">
-                   <div className="sm:w-1/3 aspect-square relative rounded-xl overflow-hidden">
-                      <img src="/mascot.png" alt="Mascot" className="object-cover w-full h-full opacity-60 group-hover:opacity-100 transition-opacity duration-700" />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
+                <div className="relative rounded-2xl border border-black/[0.05] overflow-hidden bg-white p-1 flex flex-col sm:flex-row items-center gap-6 group hover:shadow-xl transition-all">
+                   <div className="sm:w-1/3 aspect-square relative rounded-xl overflow-hidden bg-[#fafafa]">
+                      <img src="/mascot.png" alt="Mascot" className="object-cover w-full h-full opacity-80 group-hover:opacity-100 transition-opacity duration-700 contrast-125" />
+                      <div className="absolute inset-0 bg-gradient-to-t from-white/40 via-transparent to-transparent" />
                    </div>
                    <div className="flex-1 pr-6 pb-6 sm:pb-0">
-                      <h5 className="text-sm font-bold text-white/80">Secured Resilience</h5>
-                      <p className="mt-2 text-xs leading-relaxed text-white/40">
-                        Join a community of savers building their future on Stellar. Transparent, decentralized, and entirely self-custodial.
+                      <h5 className="text-sm font-black text-black/80 tracking-tight">Financial Mastery</h5>
+                      <p className="mt-2 text-xs leading-relaxed text-black/40 font-bold italic">
+                        The SavingsVault Protocol ensures your wealth is protected by the legendary security of Stellar. Join the elite.
                       </p>
-                      <div className="mt-4 flex gap-4">
+                      <div className="mt-4 flex gap-6">
                         <div className="flex flex-col">
-                           <span className="text-[9px] uppercase tracking-tighter text-white/20 font-bold">Protocol</span>
-                           <span className="text-[11px] text-emerald-400 font-mono">Soroban v1.0</span>
+                           <span className="text-[9px] uppercase tracking-tighter text-black/20 font-black">Engine</span>
+                           <span className="text-[11px] text-[#10b981] font-mono font-black italic underline decoration-dotted">Soroban L1</span>
                         </div>
-                        <div className="flex flex-col border-l border-white/10 pl-4">
-                           <span className="text-[9px] uppercase tracking-tighter text-white/20 font-bold">Status</span>
-                           <span className="text-[11px] text-amber-400 font-mono">Active</span>
+                        <div className="flex flex-col border-l border-black/[0.05] pl-4">
+                           <span className="text-[9px] uppercase tracking-tighter text-black/20 font-black">Verification</span>
+                           <span className="text-[11px] text-[#d4af37] font-mono font-black italic underline decoration-dotted">Immutble</span>
                         </div>
                       </div>
                    </div>
@@ -353,32 +355,32 @@ export default function ContractUI({ walletAddress, onConnect, isConnecting }: C
 
             {activeTab === "deposit" && (
               <div className="space-y-5">
-                <div className="rounded-xl border border-[#fbbf24]/10 bg-[#fbbf24]/[0.02] p-4 flex items-center gap-4">
-                   <div className="h-10 w-10 shrink-0 rounded-full bg-[#fbbf24]/10 flex items-center justify-center text-[#fbbf24]">
+                <div className="rounded-xl border border-[#d4af37]/10 bg-[#d4af37]/[0.02] p-4 flex items-center gap-4">
+                   <div className="h-10 w-10 shrink-0 rounded-full bg-[#d4af37]/10 flex items-center justify-center text-[#d4af37]">
                       <ArrowDownIcon />
                    </div>
                    <div className="min-w-0">
-                      <p className="text-xs font-bold text-white/80">Grow Your Wealth</p>
-                      <p className="text-[10px] text-white/40">Funds are locked securely in your user vault.</p>
+                      <p className="text-xs font-black text-black/80">Legendary Deposit</p>
+                      <p className="text-[10px] text-black/40 font-bold">Secure your assets in the crystalline vault.</p>
                    </div>
                 </div>
                 <Input
-                  label="Amount to Save (XLM)"
+                  label="XLM Amount to Vault"
                   value={depositAmount}
                   onChange={(e) => setDepositAmount(e.target.value)}
                   type="number"
                   placeholder="0.00"
                 />
                 {walletAddress ? (
-                  <ShimmerButton onClick={handleDeposit} disabled={isDepositing} shimmerColor="#fbbf24" className="w-full">
-                    {isDepositing ? <><SpinnerIcon /> Processing...</> : <><MoneyIcon /> Deposit Funds</>}
+                  <ShimmerButton onClick={handleDeposit} disabled={isDepositing} shimmerColor="#d4af37" className="w-full font-black text-sm">
+                    {isDepositing ? <><SpinnerIcon /> Processing...</> : <><MoneyIcon /> Vault Assets</>}
                   </ShimmerButton>
                 ) : (
                   <button
                     onClick={onConnect}
-                    className="w-full rounded-xl border border-dashed border-white/10 bg-white/[0.02] py-4 text-xs font-medium text-white/40 hover:bg-white/[0.04] transition-all"
+                    className="w-full rounded-xl border border-dashed border-black/10 bg-black/[0.01] py-4 text-xs font-bold text-black/30 hover:bg-black/[0.02] transition-all"
                   >
-                    Connect wallet to deposit
+                    Authenticate to deposit funds
                   </button>
                 )}
               </div>
@@ -386,32 +388,32 @@ export default function ContractUI({ walletAddress, onConnect, isConnecting }: C
 
             {activeTab === "withdraw" && (
               <div className="space-y-5">
-                <div className="rounded-xl border border-[#f87171]/10 bg-[#f87171]/[0.02] p-4 flex items-center gap-4">
-                   <div className="h-10 w-10 shrink-0 rounded-full bg-[#f87171]/10 flex items-center justify-center text-[#f87171]">
+                <div className="rounded-xl border border-[#dc2626]/10 bg-[#dc2626]/[0.02] p-4 flex items-center gap-4">
+                   <div className="h-10 w-10 shrink-0 rounded-full bg-[#dc2626]/10 flex items-center justify-center text-[#dc2626]">
                       <ArrowUpIcon />
                    </div>
                    <div className="min-w-0">
-                      <p className="text-xs font-bold text-white/80">Access Your Savings</p>
-                      <p className="text-[10px] text-white/40">Withdrawals are instant and permissionless.</p>
+                      <p className="text-xs font-black text-black/80">Asset Retrieval</p>
+                      <p className="text-[10px] text-black/40 font-bold">Unlock your liquidity with a single transaction.</p>
                    </div>
                 </div>
                 <Input
-                  label="Amount to Withdraw (XLM)"
+                  label="XLM Amount to Retrieve"
                   value={withdrawAmount}
                   onChange={(e) => setWithdrawAmount(e.target.value)}
                   type="number"
                   placeholder="0.00"
                 />
                 {walletAddress ? (
-                  <ShimmerButton onClick={handleWithdraw} disabled={isWithdrawing} shimmerColor="#f87171" className="w-full">
-                    {isWithdrawing ? <><SpinnerIcon /> Unlocking...</> : <><WalletIcon /> Withdraw Funds</>}
+                  <ShimmerButton onClick={handleWithdraw} disabled={isWithdrawing} shimmerColor="#dc2626" className="w-full font-black text-sm">
+                    {isWithdrawing ? <><SpinnerIcon /> Unlocking...</> : <><WalletIcon /> Retrieve Assets</>}
                   </ShimmerButton>
                 ) : (
                   <button
                     onClick={onConnect}
-                    className="w-full rounded-xl border border-dashed border-white/10 bg-white/[0.02] py-4 text-xs font-medium text-white/40 hover:bg-white/[0.04] transition-all"
+                    className="w-full rounded-xl border border-dashed border-black/10 bg-black/[0.01] py-4 text-xs font-bold text-black/30 hover:bg-black/[0.02] transition-all"
                   >
-                    Connect wallet to withdraw
+                    Authenticate to withdraw funds
                   </button>
                 )}
               </div>
@@ -419,16 +421,16 @@ export default function ContractUI({ walletAddress, onConnect, isConnecting }: C
           </div>
 
           {/* Footer */}
-          <div className="border-t border-white/[0.04] px-6 py-3 flex items-center justify-between">
-            <p className="text-[10px] text-white/15">Savings Vault &middot; Powered by Soroban & Stellar</p>
+          <div className="border-t border-black/[0.03] px-6 py-3 flex items-center justify-between bg-black/[0.01]">
+            <p className="text-[10px] text-black/40 font-black italic">SavingsVault Protocol &middot; Secure & Immutable</p>
             <div className="flex items-center gap-4">
-               <span className="flex items-center gap-1.5 opacity-40">
-                 <span className="h-1 w-1 rounded-full bg-emerald-400" />
-                 <span className="font-mono text-[9px] text-white/50">Secure</span>
+               <span className="flex items-center gap-1.5 opacity-60">
+                 <span className="h-1 w-1 rounded-full bg-[#10b981]" />
+                 <span className="font-mono text-[9px] text-black font-black italic">Verified</span>
                </span>
-               <span className="flex items-center gap-1.5 opacity-40">
-                 <span className="h-1 w-1 rounded-full bg-amber-400" />
-                 <span className="font-mono text-[9px] text-white/50">Instant</span>
+               <span className="flex items-center gap-1.5 opacity-60">
+                 <span className="h-1 w-1 rounded-full bg-[#d4af37]" />
+                 <span className="font-mono text-[9px] text-black font-black italic">Audited</span>
                </span>
             </div>
           </div>
@@ -437,4 +439,5 @@ export default function ContractUI({ walletAddress, onConnect, isConnecting }: C
     </div>
   );
 }
+
 

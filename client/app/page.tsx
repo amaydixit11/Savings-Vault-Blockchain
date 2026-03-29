@@ -111,21 +111,21 @@ export default function Home() {
         />
 
         {/* Footer info */}
-        <div className="mt-10 flex flex-col items-center gap-4 animate-fade-in opacity-60">
-           <div className="flex items-center gap-8 text-[10px] text-black/20">
+        <div className="mt-10 flex flex-col items-center gap-4 animate-fade-in">
+           <div className="flex items-center gap-8 text-[10px] text-black/40">
             <div className="flex items-center gap-2">
-               <div className="h-1 w-1 rounded-full bg-[#fbbf24]" />
-               <span className="font-bold">Vaulted Asset</span>
+               <div className="h-1 w-1 rounded-full bg-[#d4af37]" />
+               <span className="font-black uppercase tracking-tighter">Vaulted Asset</span>
             </div>
             <div className="flex items-center gap-2">
-               <div className="h-1 w-1 rounded-full bg-[#34d399]" />
-               <span className="font-bold">Liquidity Verified</span>
+               <div className="h-1 w-1 rounded-full bg-[#10b981]" />
+               <span className="font-black uppercase tracking-tighter">Liquidity Verified</span>
             </div>
-            <div className="flex items-center gap-1.5 opacity-50">
-               <span className="font-mono text-[9px] font-bold">SAV-v1.0</span>
+            <div className="flex items-center gap-1.5 opacity-40">
+               <span className="font-mono text-[9px] font-black italic">SAV-v1.0</span>
             </div>
           </div>
-          <div className="flex items-center gap-4 text-[10px] text-black/10 opacity-50 hover:opacity-100 transition-opacity">
+          <div className="flex items-center gap-4 text-[10px] text-black/20 font-bold uppercase tracking-widest hover:text-black/60 transition-colors">
             <span>Built by Amay Dixit &middot; BIB Bootcamp 2026</span>
           </div>
         </div>

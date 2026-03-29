@@ -147,6 +147,18 @@ export default function ContractUI({ walletAddress, onConnect, isConnecting }: C
 
   const truncate = (addr: string) => `${addr.slice(0, 6)}...${addr.slice(-4)}`;
 
+  const formatAmount = (val: bigint | null) => {
+    if (val === null) return "0";
+    const num = Number(val);
+    if (num > 1000000) {
+      return new Intl.NumberFormat("en-US", {
+        notation: "compact",
+        maximumFractionDigits: 2,
+      }).format(num);
+    }
+    return new Intl.NumberFormat("en-US").format(num);
+  };
+
   const fetchStats = useCallback(async () => {
     setIsLoadingStats(true);
     try {
@@ -270,7 +282,7 @@ export default function ContractUI({ walletAddress, onConnect, isConnecting }: C
               </div>
               <div className="flex items-center gap-2">
                 <span className="text-[10px] text-[#0a0a0a]/40 font-black">Liquidity:</span>
-                <span className="text-xs font-black text-[#059669]">{userBalance?.toString() || "0"} XLM</span>
+                <span className="text-xs font-black text-[#059669]">{formatAmount(userBalance)} XLM</span>
               </div>
             </div>
           ) : (
@@ -312,8 +324,8 @@ export default function ContractUI({ walletAddress, onConnect, isConnecting }: C
                       <MoneyIcon />
                     </div>
                     <p className="text-[10px] font-black uppercase tracking-widest text-[#0a0a0a]/40">Protocol TVL</p>
-                    <h4 className="mt-2 text-2xl font-black text-[#059669] font-mono tracking-tighter">
-                      {vaultStats?.total_amount.toString() || "0"}
+                    <h4 className="mt-2 text-xl sm:text-2xl font-black text-[#059669] font-mono tracking-tighter break-all leading-none">
+                      {formatAmount(vaultStats?.total_amount || 0n)}
                       <span className="text-[10px] ml-1 text-[#0a0a0a]/40 font-black uppercase">XLM</span>
                     </h4>
                   </div>
@@ -323,7 +335,7 @@ export default function ContractUI({ walletAddress, onConnect, isConnecting }: C
                     </div>
                     <p className="text-[10px] font-black uppercase tracking-widest text-[#0a0a0a]/40">Vault Savers</p>
                     <h4 className="mt-2 text-2xl font-black text-[#d4af37] font-mono tracking-tighter">
-                      {vaultStats?.user_count.toString() || "0"}
+                      {formatAmount(vaultStats?.user_count || 0n)}
                     </h4>
                   </div>
                 </div>

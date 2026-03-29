@@ -325,7 +325,7 @@ export default function ContractUI({ walletAddress, onConnect, isConnecting }: C
                     </div>
                     <p className="text-[10px] font-black uppercase tracking-widest text-[#0a0a0a]/40">Protocol TVL</p>
                     <h4 className="mt-2 text-xl sm:text-2xl font-black text-[#059669] font-mono tracking-tighter break-all leading-none">
-                      {formatAmount(vaultStats?.total_amount || 0n)}
+                      {formatAmount(vaultStats?.total_amount || BigInt(0))}
                       <span className="text-[10px] ml-1 text-[#0a0a0a]/40 font-black uppercase">XLM</span>
                     </h4>
                   </div>
@@ -335,7 +335,7 @@ export default function ContractUI({ walletAddress, onConnect, isConnecting }: C
                     </div>
                     <p className="text-[10px] font-black uppercase tracking-widest text-[#0a0a0a]/40">Vault Savers</p>
                     <h4 className="mt-2 text-2xl font-black text-[#d4af37] font-mono tracking-tighter">
-                      {formatAmount(vaultStats?.user_count || 0n)}
+                      {formatAmount(vaultStats?.user_count || BigInt(0))}
                     </h4>
                   </div>
                 </div>

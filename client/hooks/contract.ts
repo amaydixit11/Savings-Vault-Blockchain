@@ -10,6 +10,7 @@ import {
   nativeToScVal,
   scValToNative,
   rpc,
+  Account,
 } from "@stellar/stellar-sdk";
 import {
   isConnected,
@@ -26,7 +27,7 @@ import {
 
 /** Your deployed Soroban contract ID */
 export const CONTRACT_ADDRESS =
-  "CDJVMAX34YRCQ5JFC6SIOQOVSUY6XWEFYJOLF3SBCKU7CMI3IAP6HPWN";
+  "CC7SHEPLV3XK7YTGITY2RGZ4EBTIRRMSSWAPPV6UTZE4BRSBAVRWN2AS";
 
 /** Network passphrase (testnet by default) */
 export const NETWORK_PASSPHRASE = Networks.TESTNET;
@@ -109,7 +110,18 @@ export async function callContract(
   sign: boolean = true
 ) {
   const contract = new Contract(CONTRACT_ADDRESS);
-  const account = await server.getAccount(caller);
+  let account;
+
+  try {
+    account = await server.getAccount(caller);
+  } catch (err) {
+    if (!sign) {
+      // For read-only/simulation, use a dummy account if it doesn't exist on-chain
+      account = new Account(caller, "0");
+    } else {
+      throw err;
+    }
+  }
 
   const tx = new TransactionBuilder(account, {
     fee: "100",
@@ -129,7 +141,11 @@ export async function callContract(
 
   if (!sign) {
     // Read-only call — just return the simulation result
-    return simulated;
+    const successRes = simulated as rpc.Api.SimulateTransactionSuccessResponse;
+    if (successRes.result) {
+      return scValToNative(successRes.result.retval);
+    }
+    return null;
   }
 
   // Prepare the transaction with the simulation result
@@ -174,17 +190,8 @@ export async function readContract(
   caller?: string
 ) {
   const account =
-    caller || Keypair.random().publicKey(); // Use a random keypair for read-only
-  const sim = await callContract(method, params, account, false);
-  if (
-    rpc.Api.isSimulationSuccess(sim as rpc.Api.SimulateTransactionResponse) &&
-    (sim as rpc.Api.SimulateTransactionSuccessResponse).result
-  ) {
-    return scValToNative(
-      (sim as rpc.Api.SimulateTransactionSuccessResponse).result!.retval
-    );
-  }
-  return null;
+    caller || "GAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAWHF"; // Dummy for read-only
+  return callContract(method, params, account, false);
 }
 
 // ============================================================
@@ -212,57 +219,50 @@ export function toScValBool(value: boolean): xdr.ScVal {
 }
 
 // ============================================================
-// Supply Chain Tracker — Contract Methods
+// Savings Vault — Contract Methods
 // ============================================================
 
 /**
- * Add a product to the supply chain.
- * Calls: add_product(product_id: String, origin: String)
+ * Deposit funds into the vault.
+ * Calls: deposit(user: Address, amount: i128) -> i128
  */
-export async function addProduct(
-  caller: string,
-  productId: string,
-  origin: string
-) {
+export async function deposit(caller: string, amount: bigint) {
   return callContract(
-    "add_product",
-    [toScValString(productId), toScValString(origin)],
+    "deposit",
+    [toScValAddress(caller), toScValI128(amount)],
     caller,
     true
   );
 }
 
 /**
- * Update a product's status.
- * Calls: update_status(product_id: String, new_status: String)
+ * Withdraw funds from the vault.
+ * Calls: withdraw(user: Address, amount: i128) -> i128
  */
-export async function updateProductStatus(
-  caller: string,
-  productId: string,
-  newStatus: string
-) {
+export async function withdraw(caller: string, amount: bigint) {
   return callContract(
-    "update_status",
-    [toScValString(productId), toScValString(newStatus)],
+    "withdraw",
+    [toScValAddress(caller), toScValI128(amount)],
     caller,
     true
   );
 }
 
 /**
- * Get product details (read-only).
- * Calls: get_product(product_id: String) -> Map<Symbol, String>
- * Returns: { origin: string, status: string } or null
+ * Get user balance (read-only).
+ * Calls: get_balance(user: Address) -> i128
  */
-export async function getProduct(
-  productId: string,
-  caller?: string
-) {
-  return readContract(
-    "get_product",
-    [toScValString(productId)],
-    caller
-  );
+export async function getBalance(user: string) {
+  return readContract("get_balance", [toScValAddress(user)], user);
+}
+
+/**
+ * View global vault statistics (read-only).
+ * Calls: view_vault_stats() -> VaultStats
+ */
+export async function viewVaultStats() {
+  return readContract("view_vault_stats", []);
 }
 
 export { nativeToScVal, scValToNative, Address, xdr };
+

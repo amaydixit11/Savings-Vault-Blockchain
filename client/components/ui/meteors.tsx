@@ -1,7 +1,7 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import { useMemo } from "react";
+import { useMemo, useState, useEffect } from "react";
 
 interface MeteorsProps {
   number?: number;
@@ -9,16 +9,22 @@ interface MeteorsProps {
 }
 
 export function Meteors({ number = 15, className }: MeteorsProps) {
-  const meteors = useMemo(
-    () =>
-      Array.from({ length: number }, (_, i) => ({
-        id: i,
-        left: `${Math.floor(Math.random() * 100)}%`,
-        delay: `${(Math.random() * 5).toFixed(1)}s`,
-        duration: `${(Math.random() * 3 + 2).toFixed(1)}s`,
-      })),
-    [number]
-  );
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  const meteors = useMemo(() => {
+    return Array.from({ length: number }, (_, i) => ({
+      id: i,
+      left: `${Math.floor(Math.random() * 100)}%`,
+      delay: `${(Math.random() * 5).toFixed(1)}s`,
+      duration: `${(Math.random() * 3 + 2).toFixed(1)}s`,
+    }));
+  }, [number]);
+
+  if (!mounted) return null;
 
   return (
     <>

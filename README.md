@@ -22,3 +22,7 @@ Our vision is to empower individuals worldwide with an accessible, permissionles
 - **Locked Savings**: Optional time-lock features to help users reach their savings goals by preventing early withdrawals.
 - **Interest-Bearing Vaults**: Implement automated interest distribution for long-term savers.
 - **Community Governance**: Introduce a governance mechanism for users to participate in vault development and decisions.
+
+## Contract Deployment Details
+- **Contract ID** : CC7SHEPLV3XK7YTGITY2RGZ4EBTIRRMSSWAPPV6UTZE4BRSBAVRWN2AS
+- **Contract Screenshot** : <img width="1609" height="1032" alt="image" src="https://github.com/user-attachments/assets/75a44eae-5a17-43fe-bb2e-071863265e3a" />

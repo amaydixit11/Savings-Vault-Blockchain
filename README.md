@@ -1,6 +1,7 @@
 # Savings Vault - Smart Contract
 
 ![Savings Vault Mascot](savings_vault_mascot.png)
+<img width="1394" height="1035" alt="image" src="https://github.com/user-attachments/assets/3de3e3ac-1033-4162-8d1a-b440af3786cb" />
 
 ## Project Title
 **Savings Vault**

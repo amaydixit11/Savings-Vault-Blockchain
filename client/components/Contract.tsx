@@ -107,13 +107,13 @@ function Input({
 }: { label: string } & React.InputHTMLAttributes<HTMLInputElement>) {
   return (
     <div className="space-y-2">
-      <label className="block text-[11px] font-bold uppercase tracking-wider text-black/30">
+      <label className="block text-[11px] font-bold uppercase tracking-wider text-[#0a0a0a]/30">
         {label}
       </label>
       <div className="group rounded-xl border border-black/[0.1] bg-black/[0.02] p-px transition-all focus-within:border-[#d4af37]/50 focus-within:shadow-[0_4px_20px_rgba(212,175,55,0.1)]">
         <input
           {...props}
-          className="w-full rounded-[11px] bg-transparent px-4 py-3 font-mono text-sm text-black placeholder:text-black/20 outline-none font-bold"
+          className="w-full rounded-[11px] bg-transparent px-4 py-3 font-mono text-sm text-[#0a0a0a] placeholder:text-[#0a0a0a]/20 outline-none font-bold"
         />
       </div>
     </div>
@@ -252,8 +252,8 @@ export default function ContractUI({ walletAddress, onConnect, isConnecting }: C
                 <MoneyIcon />
               </div>
               <div>
-                <h3 className="text-sm font-black text-black">Savings Vault</h3>
-                <p className="text-[10px] text-black/60 font-black font-mono mt-0.5 tracking-tight">{truncate(CONTRACT_ADDRESS)}</p>
+                <h3 className="text-sm font-black text-[#0a0a0a]">Savings Vault</h3>
+                <p className="text-[10px] text-[#0a0a0a]/60 font-black font-mono mt-0.5 tracking-tight">{truncate(CONTRACT_ADDRESS)}</p>
               </div>
             </div>
             <div className="flex items-center gap-2">
@@ -266,28 +266,28 @@ export default function ContractUI({ walletAddress, onConnect, isConnecting }: C
             <div className="bg-gradient-to-r from-black/[0.01] to-transparent px-6 py-2 border-b border-black/[0.02] flex items-center justify-between">
               <div className="flex items-center gap-2">
                 <WalletIcon />
-                <span className="text-[10px] font-mono text-black/60 font-black">{truncate(walletAddress)}</span>
+                <span className="text-[10px] font-mono text-[#0a0a0a]/60 font-black">{truncate(walletAddress)}</span>
               </div>
               <div className="flex items-center gap-2">
-                <span className="text-[10px] text-black/40 font-black">Liquidity:</span>
+                <span className="text-[10px] text-[#0a0a0a]/40 font-black">Liquidity:</span>
                 <span className="text-xs font-black text-[#059669]">{userBalance?.toString() || "0"} XLM</span>
               </div>
             </div>
           ) : (
             <div className="bg-black/[0.02] px-6 py-2 border-b border-black/[0.02] flex items-center justify-center">
-              <p className="text-[10px] text-black/40 font-black">Authenticate with Freighter for personal vault access</p>
+              <p className="text-[10px] text-[#0a0a0a]/40 font-black">Authenticate with Freighter for personal vault access</p>
             </div>
           )}
 
           {/* Tabs */}
-          <div className="flex border-b border-black/[0.04] px-2 bg-black/[0.01]">
+          <div className="flex border-b border-black/[0.08] px-2 bg-[#fdfdfd]">
             {tabs.map((t) => (
               <button
                 key={t.key}
                 onClick={() => { setActiveTab(t.key); setError(null); }}
                 className={cn(
                   "relative flex items-center gap-2 px-5 py-3.5 text-sm font-black transition-all group",
-                  activeTab === t.key ? "text-black" : "text-black/40 hover:text-black/60"
+                  activeTab === t.key ? "text-[#0a0a0a]" : "text-[#0a0a0a]/40 hover:text-[#0a0a0a]/60"
                 )}
               >
                 <span className="transition-transform group-hover:scale-110" style={activeTab === t.key ? { color: t.color } : undefined}>{t.icon}</span>
@@ -308,20 +308,20 @@ export default function ContractUI({ walletAddress, onConnect, isConnecting }: C
               <div className="space-y-6">
                 <div className="grid grid-cols-2 gap-4">
                   <div className="rounded-2xl border border-black/[0.04] bg-white p-5 relative overflow-hidden group hover:shadow-lg transition-all">
-                    <div className="absolute -right-4 -top-4 text-black/[0.02] group-hover:text-black/[0.05] transition-colors scale-150">
+                    <div className="absolute -right-4 -top-4 text-[#0a0a0a]/[0.02] group-hover:text-[#0a0a0a]/[0.05] transition-colors scale-150">
                       <MoneyIcon />
                     </div>
-                    <p className="text-[10px] font-black uppercase tracking-widest text-black/40">Protocol TVL</p>
+                    <p className="text-[10px] font-black uppercase tracking-widest text-[#0a0a0a]/40">Protocol TVL</p>
                     <h4 className="mt-2 text-2xl font-black text-[#059669] font-mono tracking-tighter">
                       {vaultStats?.total_amount.toString() || "0"}
-                      <span className="text-[10px] ml-1 text-black/40 font-black uppercase">XLM</span>
+                      <span className="text-[10px] ml-1 text-[#0a0a0a]/40 font-black uppercase">XLM</span>
                     </h4>
                   </div>
                   <div className="rounded-2xl border border-black/[0.04] bg-white p-5 relative overflow-hidden group hover:shadow-lg transition-all">
-                    <div className="absolute -right-4 -top-4 text-black/[0.02] group-hover:text-black/[0.05] transition-colors scale-150">
+                    <div className="absolute -right-4 -top-4 text-[#0a0a0a]/[0.02] group-hover:text-[#0a0a0a]/[0.05] transition-colors scale-150">
                       <UsersIcon />
                     </div>
-                    <p className="text-[10px] font-black uppercase tracking-widest text-black/40">Vault Savers</p>
+                    <p className="text-[10px] font-black uppercase tracking-widest text-[#0a0a0a]/40">Vault Savers</p>
                     <h4 className="mt-2 text-2xl font-black text-[#d4af37] font-mono tracking-tighter">
                       {vaultStats?.user_count.toString() || "0"}
                     </h4>
@@ -334,17 +334,17 @@ export default function ContractUI({ walletAddress, onConnect, isConnecting }: C
                       <div className="absolute inset-0 bg-gradient-to-t from-white/40 via-transparent to-transparent" />
                    </div>
                    <div className="flex-1 pr-6 pb-6 sm:pb-0">
-                      <h5 className="text-sm font-black text-black/80 tracking-tight">Financial Mastery</h5>
-                      <p className="mt-2 text-xs leading-relaxed text-black/40 font-bold italic">
+                      <h5 className="text-sm font-black text-[#0a0a0a]/80 tracking-tight">Financial Mastery</h5>
+                      <p className="mt-2 text-xs leading-relaxed text-[#0a0a0a]/40 font-bold italic">
                         The SavingsVault Protocol ensures your wealth is protected by the legendary security of Stellar. Join the elite.
                       </p>
                       <div className="mt-4 flex gap-6">
                         <div className="flex flex-col">
-                           <span className="text-[9px] uppercase tracking-tighter text-black/20 font-black">Engine</span>
+                           <span className="text-[9px] uppercase tracking-tighter text-[#0a0a0a]/20 font-black">Engine</span>
                            <span className="text-[11px] text-[#10b981] font-mono font-black italic underline decoration-dotted">Soroban L1</span>
                         </div>
                         <div className="flex flex-col border-l border-black/[0.05] pl-4">
-                           <span className="text-[9px] uppercase tracking-tighter text-black/20 font-black">Verification</span>
+                           <span className="text-[9px] uppercase tracking-tighter text-[#0a0a0a]/20 font-black">Verification</span>
                            <span className="text-[11px] text-[#d4af37] font-mono font-black italic underline decoration-dotted">Immutble</span>
                         </div>
                       </div>
@@ -360,8 +360,8 @@ export default function ContractUI({ walletAddress, onConnect, isConnecting }: C
                       <ArrowDownIcon />
                    </div>
                    <div className="min-w-0">
-                      <p className="text-xs font-black text-black/80">Legendary Deposit</p>
-                      <p className="text-[10px] text-black/40 font-bold">Secure your assets in the crystalline vault.</p>
+                      <p className="text-xs font-black text-[#0a0a0a]/80">Legendary Deposit</p>
+                      <p className="text-[10px] text-[#0a0a0a]/40 font-bold">Secure your assets in the crystalline vault.</p>
                    </div>
                 </div>
                 <Input
@@ -378,7 +378,7 @@ export default function ContractUI({ walletAddress, onConnect, isConnecting }: C
                 ) : (
                   <button
                     onClick={onConnect}
-                    className="w-full rounded-xl border border-dashed border-black/10 bg-black/[0.01] py-4 text-xs font-bold text-black/30 hover:bg-black/[0.02] transition-all"
+                    className="w-full rounded-xl border border-dashed border-black/10 bg-black/[0.01] py-4 text-xs font-bold text-[#0a0a0a]/30 hover:bg-black/[0.02] transition-all"
                   >
                     Authenticate to deposit funds
                   </button>
@@ -393,8 +393,8 @@ export default function ContractUI({ walletAddress, onConnect, isConnecting }: C
                       <ArrowUpIcon />
                    </div>
                    <div className="min-w-0">
-                      <p className="text-xs font-black text-black/80">Asset Retrieval</p>
-                      <p className="text-[10px] text-black/40 font-bold">Unlock your liquidity with a single transaction.</p>
+                      <p className="text-xs font-black text-[#0a0a0a]/80">Asset Retrieval</p>
+                      <p className="text-[10px] text-[#0a0a0a]/40 font-bold">Unlock your liquidity with a single transaction.</p>
                    </div>
                 </div>
                 <Input
@@ -411,7 +411,7 @@ export default function ContractUI({ walletAddress, onConnect, isConnecting }: C
                 ) : (
                   <button
                     onClick={onConnect}
-                    className="w-full rounded-xl border border-dashed border-black/10 bg-black/[0.01] py-4 text-xs font-bold text-black/30 hover:bg-black/[0.02] transition-all"
+                    className="w-full rounded-xl border border-dashed border-black/10 bg-black/[0.01] py-4 text-xs font-bold text-[#0a0a0a]/30 hover:bg-black/[0.02] transition-all"
                   >
                     Authenticate to withdraw funds
                   </button>
@@ -422,15 +422,15 @@ export default function ContractUI({ walletAddress, onConnect, isConnecting }: C
 
           {/* Footer */}
           <div className="border-t border-black/[0.03] px-6 py-3 flex items-center justify-between bg-black/[0.01]">
-            <p className="text-[10px] text-black/40 font-black italic">SavingsVault Protocol &middot; Secure & Immutable</p>
+            <p className="text-[10px] text-[#0a0a0a]/40 font-black italic">SavingsVault Protocol &middot; Secure & Immutable</p>
             <div className="flex items-center gap-4">
                <span className="flex items-center gap-1.5 opacity-60">
                  <span className="h-1 w-1 rounded-full bg-[#10b981]" />
-                 <span className="font-mono text-[9px] text-black font-black italic">Verified</span>
+                 <span className="font-mono text-[9px] text-[#0a0a0a] font-black italic">Verified</span>
                </span>
                <span className="flex items-center gap-1.5 opacity-60">
                  <span className="h-1 w-1 rounded-full bg-[#d4af37]" />
-                 <span className="font-mono text-[9px] text-black font-black italic">Audited</span>
+                 <span className="font-mono text-[9px] text-[#0a0a0a] font-black italic">Audited</span>
                </span>
             </div>
           </div>

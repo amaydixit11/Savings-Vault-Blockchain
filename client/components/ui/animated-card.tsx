@@ -37,7 +37,7 @@ export function AnimatedCard({
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       className={cn(
-        "group relative overflow-hidden rounded-2xl border border-white/[0.08] bg-gradient-to-br from-white/[0.05] to-white/[0.02] backdrop-blur-xl animate-fade-in-up",
+        "group relative overflow-hidden rounded-2xl border border-black/[0.08] bg-white shadow-sm animate-fade-in-up",
         containerClassName
       )}
     >
